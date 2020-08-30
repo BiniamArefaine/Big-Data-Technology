@@ -1,0 +1,3 @@
+val textFile = sc.textFile("file:/usr/lib/spark/LICENSE")
+val linesBSD = textFile.filter(line => line.contains("BSD"))
+val finalresult = linesBSD.filter(line => line.contains("(")).count()

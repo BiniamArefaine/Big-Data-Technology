@@ -1,0 +1,51 @@
+
+
+==================start zookeeper===================
+
+cd $KAFKA_HOME
+zookeeper-server-start.sh ./config/zookeeper.properties
+
+
+
+
+===================start kafka============================
+cd $KAFKA_HOME
+kafka-server-start.sh ./config/server.properties
+
+
+
+
+=================check the running daemons================================
+jps
+
+
+
+
+
+==================creating topic===========================
+kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partition 1 --topic bdt
+
+
+
+
+===============creating producer========================
+kafka-console-producer.sh --broker-list localhost:9092 --topic bdt
+>this
+>is
+>a
+>test
+>for kafka
+
+
+=================creating consumer============================
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic bdt --from-beginning
+
+this
+is
+a
+test
+for kafka
+
+========================check list of topics on kafka===========
+
+kafka-topics.sh --list --zookeeper localhost:2181

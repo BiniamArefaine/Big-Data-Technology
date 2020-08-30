@@ -1,0 +1,9 @@
+recordList = LOAD '/home/cloudera/Desktop/Lab-5/Part-2/1.MaleLawyersCount/users.txt' USING PigStorage ('|') AS (userID:int, age:int, gender:chararray, occupation:chararray, zipCode:long);
+genderFilter = FILTER recordList BY gender == 'M' AND occupation == 'lawyer';
+groupGenderByID = GROUP genderFilter BY userID;
+count = GROUP groupGenderByID ALL;
+countedLawyers = FOREACH count GENERATE COUNT(groupGenderByID);
+dump countedLawyers;
+--STORE countedLawyers INTO 'output2.1' USING PigStorage('*');
+
+

@@ -1,0 +1,5 @@
+1.$hadoop fs -mkdir input
+
+2.$hadoop fs -put /home/cloudera/Desktop/NCDC-Weather.txt input
+
+3.$hadoop jar /home/cloudera/Desktop/5.AVG-TEMP-YEAR.jar WordCount input output

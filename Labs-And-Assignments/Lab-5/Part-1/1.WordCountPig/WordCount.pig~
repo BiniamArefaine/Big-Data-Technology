@@ -1,0 +1,9 @@
+recordWords = LOAD '/home/cloudera/Desktop/InputForWC.txt' USING TextLoader() AS (line:chararray);
+tab_Token = FOREACH recordWords GENERATE TOKENIZE(line,'\t') as wordTokenized;
+tab_FlattenWords = FOREACH tab_Token GENERATE FLATTEN(wordTokenized) as wordsFlattened;
+tokenized = FOREACH tab_FlattenWords GENERATE TOKENIZE(wordsFlattened) as listWords;
+flattened = FOREACH tokenized GENERATE FLATTEN(listWords) as word;
+grouping = GROUP flattened BY word;
+countWords = FOREACH grouping GENERATE group, COUNT(flattened);
+STORE countWords INTO 'output1' USING PigStorage(',');
+
